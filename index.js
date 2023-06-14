@@ -10,11 +10,12 @@ db()
 app.use(cors())
 app.use(express.json())
 
-//Adding custom middleware
-app.use('/api', clientRoutes)
 app.get('/', (req, res) => {
   res.status(200).send('Welcome to my portfolio')
 })
+
+//Adding custom middleware
+app.use('/api', clientRoutes)
 
 //PORT
 const PORT = process.env.PORT || 8080
