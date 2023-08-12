@@ -5,21 +5,22 @@ const Client = require("../Models/client.model");
 
 //To create an Client
 router.post("/create-client", async (req, res) => {
-  try {
-    const payload = req.body;
-    const employee = new Client(payload);
-    await employee.save((err, data) => {
-      if (err) {
-        return res.status(400).send("Please fill the input");
-      }
-      res.status(201).send({
-        status: "Request sent successfully",
-        data: data,
-      });
+  const payload = req.body;
+  const employee = new Client(payload);
+  await employee
+    .save()
+    .then((data) => {
+      res
+        .status(200)
+        .send({
+          status: "success",
+          message: "message sent successfuuly",
+          data: data,
+        });
+    })
+    .catch((error) => {
+      res.status(500).send({ status: "fail", message: error.message });
     });
-  } catch (err) {
-    res.status(500).send("Internal Server Error", err);
-  }
 });
 
 //To get All the Client
